@@ -1,6 +1,7 @@
 Create database `senacyt` default character set utf8mb4 default collate utf8mb4_bin;
 use senacyt;
 
+
 create table PERSON (
 	id integer auto_increment,
     username varchar(25) not null,
@@ -53,5 +54,28 @@ create table PERSON_AREA (
     constraint FK_PERSON_AREA_PERSON foreign key (person) references PERSON (id) on delete cascade,
     constraint FK_PERSON_AREA_AREA foreign key (area) references AREA (id) on delete cascade
 );
+
+
+SET FOREIGN_KEY_CHECKS = 0; 
+truncate table TYPEACHI;
+SET FOREIGN_KEY_CHECKS = 1;
+
+
+insert into PERSON (username, password, name, last_name, phone, address, birthday, other)
+values ('HenryLeon', 'HolaHenry_5', 'Henry', 'León', 12345678, 'zona 6', '1995-12-12', "Con fe");
+insert into PERSON (username, password, name, last_name, phone, address, birthday)
+values ('FranHER', 'HolaHenry_5', 'Henry', 'León', 12345678, 'zona 6', '1995-12-12');
+
+insert into TYPEACHI (name) values ('Licenciatura'),('Maestría'),('Doctorado'),('Diplomado');
+
+insert into AREA (name) values ('Ciencias de la computación'), ('Psicología'), ('Ciencias económicas');
+
+
+select * from PERSON;
+select * from TYPEACHI;
+select * from ACAACHI;
+select * from PERSON_TYPE;
+
+
 
 
