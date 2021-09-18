@@ -6,6 +6,7 @@ const cors = require('cors');
 const app = express();
 const Person = require('./models/person');
 const Acaachi = require('./models/acaachi');
+const Area = require('./models/area');
 
 
 
@@ -187,7 +188,7 @@ app.post('/typeAchi', (req, res) => {
         if (data.length > 0) {
             res.status(409).json({
                 status: false,
-                msg: 'ERROR SignUp! Academic Achievements already exists'
+                msg: 'ERROR! Academic Achievements already exists'
             });
         }
         else {
@@ -337,6 +338,164 @@ app.delete('/acaAchi/:id', (req, res) => {
         else {
             res.status(500).json({
                 msg: 'Error'
+            })
+        }
+    });
+});
+
+
+app.delete('/acaAchi/:person/:acaachi', (req, res) => {
+    Acaachi.deleteDetAcaPer(req.params.person, req.params.acaachi, (err, data) => {
+        if (data && data.msg === 'deleted' || data.msg === 'not exists') {
+            res.json({
+                success: true,
+                data
+            })
+        }
+        else {
+            res.status(500).json({
+                msg: 'Error'
+            })
+        }
+    });
+});
+
+
+//------------------------------------------------- AREA ---------------------------------------
+app.get('/getAllArea', (req, res) => {
+    Area.getAllArea((err, data) => {
+        res.status(200).json(data);
+    });
+});
+
+
+app.post('/typeArea', (req, res) => {
+    const areaData = {
+        name: req.body.name,
+    };
+    Area.existArea(areaData, (err, data) => {
+        if (data.length > 0) {
+            res.status(409).json({
+                status: false,
+                msg: 'ERROR Area already exists'
+            });
+        }
+        else {
+            Area.addArea(areaData, (err, data) => {
+                if (err) {
+                    res.status(409).json({
+                        status: false,
+                        msg: 'ERROR Area'
+                    });
+                }
+                if (data && data.insertId) {
+                    res.json({
+                        status: true,
+                        msg: 'Successfully added Area',
+                        data: data
+                    })
+                }
+                else {
+                    console.log(err);
+                    res.status(500).json({
+                        success: false,
+                        msg: 'Area already exists'
+                    })
+                }
+            });
+        }
+    });
+});
+
+
+app.delete('/typeArea/:id', (req, res) => {
+    Area.deleteTypeArea(req.params.id, (err, data) => {
+        if (data && data.msg === 'deleted' || data.msg === 'not exists') {
+            res.json({
+                success: true,
+                data
+            })
+        }
+        else {
+            res.status(500).json({
+                msg: 'Error'
+            })
+        }
+    });
+});
+
+
+app.post('/Area', (req, res) => {
+    const detData = {
+        person: req.body.person,
+        area: req.body.area,
+    };
+        Area.addDetaAreaPer(detData, (err, data) => {
+            if (err) {
+                res.status(409).json({
+                    status: false,
+                    msg: 'ERROR Area-Person'
+                });
+            }
+            if (data && data.insertId) {
+                res.json({
+                    status: true,
+                    msg: 'Successfully added Area-Person',
+                    data: data
+                })
+            }
+            else {
+                res.json({
+                    status: true,
+                    msg: 'Successfully added Area-Person',
+                    data: data
+                })
+            }
+        });
+});
+
+
+app.delete('/Area/:person/:area', (req, res) => {
+    Area.deleteDetAreaPer(req.params.person, req.params.area, (err, data) => {
+        if (data && data.msg === 'deleted' || data.msg === 'not exists') {
+            res.json({
+                success: true,
+                data
+            })
+        }
+        else {
+            res.status(500).json({
+                msg: 'Error'
+            })
+        }
+    });
+});
+
+
+app.put('/Area', (req, res) => {
+    const areaData = {
+        id: req.body.id,
+        name: req.body.name,
+    };
+
+    Area.updateArea(areaData, (err, data) => {
+        if (err) {
+            res.status(409).json({
+                status: false,
+                msg: 'ERROR Update Area'
+            });
+        }
+        if (data && data.status) {
+            res.json({
+                status: true,
+                msg: 'Successfully update Area',
+                data: data
+            })
+        }
+        else {
+            res.status(500).json({
+                success: false,
+                msg: 'Area not exists'
             })
         }
     });

@@ -165,5 +165,27 @@ dbModel.deleteAcaAchi = (id, callback) => {
 };
 
 
+dbModel.deleteDetAcaPer = (person, acaachi, callback) => {
+    if (connection) {
+        let sql = `
+                DELETE FROM PERSON_TYPE WHERE person = ${connection.escape(person)}
+                and acaachi = ${connection.escape(acaachi)}
+                `;
+        connection.query(sql, (err, result) => {
+            if (err) {
+                callback(err, {
+                    msg: 'Not-deleted'
+                });
+            }
+            else {
+                callback(null, {
+                    msg: 'deleted'
+                })
+            }
+        });
+    }
+};
+
+
 
 module.exports = dbModel;
