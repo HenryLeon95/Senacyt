@@ -61,6 +61,28 @@ dbModel.addTypeAchi = (acaData, callback) => {
 };
 
 
+dbModel.updateTypeAcaachi = (acaData, callback) => {
+    if(connection){
+        const sql = `
+            UPDATE TYPEACHI SET
+            name = ${connection.escape(acaData.name)}
+            WHERE id = ${connection.escape(acaData.id)}
+        `;
+        
+        connection.query(sql, (err, result) => {
+            if(err){
+                callback(null);
+            }
+            else{
+                callback(null, {
+                    status: true
+                });
+            }
+        });
+    }
+};
+
+
 dbModel.deleteTypeAchi = (id, callback) => {
     if (connection) {
         let sql = `

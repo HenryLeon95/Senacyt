@@ -7,6 +7,7 @@ const app = express();
 const Person = require('./models/person');
 const Acaachi = require('./models/acaachi');
 const Area = require('./models/area');
+const Report = require('./models/report');
 
 
 
@@ -214,6 +215,37 @@ app.post('/typeAchi', (req, res) => {
                     })
                 }
             });
+        }
+    });
+});
+
+
+app.put('/typeAchi', (req, res) => {
+    const acaData = {
+        id: req.body.id,
+        name: req.body.name
+    };
+
+    Acaachi.updateTypeAcaachi(acaData, (err, data) => {
+        if (err) {
+            res.status(409).json({
+                status: false,
+                msg: 'ERROR Update Type Academic achievements'
+            });
+        }
+        if (data && data.status) {
+
+            res.json({
+                status: true,
+                msg: 'Successfully update Type Academic achievements',
+                data: data
+            })
+        }
+        else {
+            res.status(500).json({
+                success: false,
+                msg: 'Type Academic achievements not exists'
+            })
         }
     });
 });
@@ -501,6 +533,19 @@ app.put('/Area', (req, res) => {
     });
 });
 
+
+//------------------------------------------------- REPORTS ---------------------------------------
+app.get('/report1', (req, res) => {
+    Report.person_academic_count((err, data) => {
+        res.status(200).json(data);
+    });
+});
+
+app.get('/report2', (req, res) => {
+    Report.area_amount_people((err, data) => {
+        res.status(200).json(data);
+    });
+});
 
 
 

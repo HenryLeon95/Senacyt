@@ -1,5 +1,7 @@
+drop database senacyt;
 Create database `senacyt` default character set utf8mb4 default collate utf8mb4_bin;
 use senacyt;
+SET sql_mode=(SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', '')); 
 
 
 create table PERSON (
@@ -42,15 +44,19 @@ create table AREA (
 );
 
 create table PERSON_TYPE (
+	id integer auto_increment,
 	person integer,
     acaachi integer,
+    constraint PK_PERSON_TYPE primary key (id),
     constraint FK_PERSON_TYPE_PERSON foreign key (person) references PERSON (id) on delete cascade,
     constraint FK_PERSON_TYPE_ACAACHI foreign key (acaachi) references ACAACHI (id) on delete cascade
 );
 
 create table PERSON_AREA (
+	id integer auto_increment,
 	person integer,
     area integer,
+    constraint PK_PERSON_AREA primary key (id),
     constraint FK_PERSON_AREA_PERSON foreign key (person) references PERSON (id) on delete cascade,
     constraint FK_PERSON_AREA_AREA foreign key (area) references AREA (id) on delete cascade
 );
@@ -75,6 +81,30 @@ select * from PERSON;
 select * from TYPEACHI;
 select * from ACAACHI;
 select * from PERSON_TYPE;
+select * from AREA;
+select * from PERSON_AREA;
+
+
+
+
+
+-- Personas registradas con su último grado académico registrado.
+create or replace view person_academic_count as
+select p.username, p.name, p.last_name, p.phone, p.address, p.birthday, p.other, t.name as name_academic_achievements, a.degree_date, a.title, a.institution, a.other as other_academic from (
+	select MAX(pt.id) id from PERSON_TYPE pt
+	group by pt.person
+) as v1, PERSON p, TYPEACHI t, ACAACHI a, PERSON_TYPE dp
+where v1.id = dp.id
+and p.id = dp.person
+and a.id = dp.acaachi
+and a.type = t.id;
+
+select * from person_academic_count;
+
+-- Todas las áreas de registro con el número de personas que hay en ellas.
+select a.name as name_area, Count(pa.area) as amount_people from AREA a, PERSON_AREA pa
+where a.id = pa.area
+group by (pa.area);
 
 
 
