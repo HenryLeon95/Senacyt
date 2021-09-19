@@ -37,27 +37,25 @@ class Navbar extends Component {
                         class="collapse navbar-collapse justify-content-center"
                         id="navbarCenteredExample">
                         <ul class="navbar-nav mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href={"./dashboard"}>SENACYT</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href={"./dashboard"}>Mi perfil</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Mis Datos Académicos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Mis Áreas de Desempeño</a>
-                            </li>
                             {Sesion.VerifySesion() && (
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#" onClick={() => Sesion.Logout()}>Cerrar Sesión</a>
-                                </li>
+                                <><li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href={"./dashboard"}>SENACYT</a>
+                                </li><li class="nav-item">
+                                        <a class="nav-link" href={"./profile"}>Mi perfil</a>
+                                    </li><li class="nav-item">
+                                        <a class="nav-link" href="#">Mis Datos Académicos</a>
+                                    </li><li class="nav-item">
+                                        <a class="nav-link" href="#">Mis Áreas de Desempeño</a>
+                                    </li><li class="nav-item">
+                                        <a class="nav-link" href="./report">Reportes</a>
+                                    </li><li class="nav-item">
+                                        <a class="nav-link" href="#" onClick={() => Sesion.Logout()}>Cerrar Sesión</a>
+                                    </li></>
                             )}
 
                             {Sesion.VerifySesion() === false && (
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Iniciar Sesión</a>
+                                    <a class="nav-link" href="./">Iniciar Sesión</a>
                                 </li>
                             )}
                             {/* <li class="nav-item dropdown">

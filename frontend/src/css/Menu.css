@@ -20,3 +20,16 @@ h1.centrado {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+
+
+  
+.wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column; 
+    justify-content: center;
+    width: 100%;
+    min-height: 100%;
+    padding: 15%;
+  }
