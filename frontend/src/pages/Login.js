@@ -18,18 +18,6 @@ class Login extends Component {
         personG: {}
     }
 
-    // personG = {
-    //     id: 0,
-    //     username: '',
-    //     password: '',
-    //     name: '',
-    //     last_name: '',
-    //     phone: '',
-    //     address: '',
-    //     birthday: '',
-    //     other: ''
-    // }
-
     // Guarda en el estado el valor del input
     handleChange=async e=>{
         await this.setState({
@@ -85,19 +73,17 @@ class Login extends Component {
         });
     };
 
+
+
+    componentDidMount(){
+        document.title = "LOGIN | SENACYT";
+        if(cookies.get("id")){
+            window.location.href = "./dashboard";
+        }
+    }
+
     render() {
         return (
-            // <div className="containerPrincipal">
-            //     <div className="containerSecundario">
-            //         <div className="form-group">
-            //             <label>Usuario: </label><br />
-            //             <input type="text" className="form-control" /> <br />
-            //             <label>Contraseña: </label><br />
-            //             <input type="password" className="form-control" /> <br />
-            //             <button className="btn-btn-primary">Iniciar Sesión</button>
-            //         </div>
-            //     </div>
-            // </div>
             <html>
             <body>
             <><script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -113,7 +99,7 @@ class Login extends Component {
                         onChange={this.handleChange} />
                         <input type="password" id="password" className="fadeIn third" name="password" placeholder="password"
                         onChange={this.handleChange} />
-                        <input type="submit" className="fadeIn fourth" value="Log In" />
+                        <input type="submit" className="fadeIn fourth" value="Iniciar Sesión" />
                         {/* </div> */}
                     </form>
                     <div id="formFooter">

@@ -1,0 +1,22 @@
+p.centrado {
+    text-align: center;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+h1.centrado {
+    text-align: center;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: darkgray;
+}
+
+.img-div-center {
+    height: 800px;
+    position: relative;
+}
+
+.img-centro-vert-hor {
+    width: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

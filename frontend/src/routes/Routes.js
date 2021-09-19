@@ -7,10 +7,10 @@ import Menu from '../pages/Menu';
 function Routes() {
   return (
     <BrowserRouter>
-    <switch>
+    <Switch>
       <Route exact path = "/" component={Login} /> {/* Ruta que será alojado el componente */}
       <Route exact path = "/dashboard" component={Menu} />
-    </switch>
+    </Switch>
     </BrowserRouter>
   );
 }
